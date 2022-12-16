@@ -11,6 +11,8 @@ const App = () => {
   const [firstNumber, setFirstNumber] = useState('0');
   const [operation, setOperation] = useState('');
 
+ 
+
   const handleOnClear = () => {
     setCurrentNumber('0')
     setFirstNumber('0')
@@ -49,6 +51,37 @@ const App = () => {
 
   }
 
+  const handleMultiply = () => {
+    if(firstNumber === '0'){
+      setFirstNumber(String(currentNumber));
+      setCurrentNumber('0')
+      setOperation('*')
+  }else {
+    const multiplication = Number(firstNumber) * Number(currentNumber);
+    setCurrentNumber(String(multiplication))
+    setOperation('')
+    
+  }
+
+}
+
+const handleDivition = () => {
+  if(firstNumber === '0'){
+    setFirstNumber(String(currentNumber));
+    setCurrentNumber('0')
+    setOperation('/')
+}else {
+  const divition = Number(firstNumber) / Number(currentNumber);
+  setCurrentNumber(String(divition))
+  setOperation('')
+  
+}
+
+}
+
+
+
+
   const handleEquals = () => {
 
     if(firstNumber !== '0' && operation !== '' && currentNumber !== '0'){
@@ -59,6 +92,12 @@ const App = () => {
           case '-':
             handleMinusNumbers();
             break;
+          case '*':
+              handleMultiply();
+              break;
+          case '/':
+            handleDivition();
+            break;
           default: 
             break;
         }
@@ -66,13 +105,19 @@ const App = () => {
 
   }
 
+  
+
+
+
+
+
   return (
     <Container>
       <Content>
         <Input value={currentNumber}/>
         <Row>
-          <Button label="x"/>
-          <Button label="/"/>
+          <Button label="x" onClick={handleMultiply}/>
+          <Button label="/" onClick={handleDivition}/>
           <Button label="c" onClick={handleOnClear}/>
           <Button label="."/>
         </Row>
